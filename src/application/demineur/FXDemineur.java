@@ -54,8 +54,8 @@ public class FXDemineur extends Application {
         menu.getItems().add(item2);
         
         GridPane gd = new GridPane();
-        gd.setMaxWidth(310);
-        gd.setMaxHeight(400);
+        gd.setMaxWidth(320);
+        gd.setMaxHeight(420);
         
         Button button;
         Cellule c;
