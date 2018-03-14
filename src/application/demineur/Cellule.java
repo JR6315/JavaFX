@@ -109,18 +109,18 @@ public class Cellule extends Observable {
 			if (selected){
 				switch (value) {
 				case -1 : 
-					button.setStyle("-fx-background-color: #ff0000;-fx-border-color: #000000;");
+					button.setStyle("-fx-background-color: #ff0000;-fx-border-color: #a0a0a0;");
 					break;
 				case 0 : 
-					button.setStyle("-fx-background-color: #ffffff;-fx-border-color: #000000;");
+					button.setStyle("-fx-background-color: #ffffff;-fx-border-color: #a0a0a0;");
 					break;
 				default  : 
-					button.setStyle("-fx-background-color: #00ff00;-fx-border-color: #000000;");
+					button.setStyle("-fx-background-color: #00ff00;-fx-border-color: #a0a0a0;");
 					break;
 				}
 				button.setText(String.valueOf(value));
 			}else{
-				button.setStyle("-fx-background-color: #f4f4f4;-fx-border-color: #000000;");
+				button.setStyle("-fx-background-color: #f4f4f4;-fx-border-color: #a0a0a0;");
 				button.setText("");
 			}
 		}

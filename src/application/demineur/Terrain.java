@@ -11,9 +11,9 @@ import java.util.Observer;
 public class Terrain implements Observer {
 
 	private Cellule[][] listCellule;
-	private static final int NB_LIGNE = 10;
-	private static final int NB_COLONNE = 10;
-	private static final int NB_MINE = 10;
+	private static final int NB_LIGNE = 15;
+	private static final int NB_COLONNE = 20;
+	private static final int NB_MINE = 15;
 
 	/**
 	 * Construtor
@@ -65,10 +65,10 @@ public class Terrain implements Observer {
 	 */
 	public void initTerrain(){
 		if (listCellule == null){
-			listCellule = new Cellule[NB_LIGNE][NB_COLONNE];
+			listCellule = new Cellule[NB_COLONNE][NB_LIGNE];
 		}
-		for (int i = 0; i < NB_LIGNE; i++){
-			for (int j = 0; j < NB_COLONNE; j++){
+		for (int i = 0; i < NB_COLONNE; i++){
+			for (int j = 0; j < NB_LIGNE; j++){
 				if (listCellule[i][j] != null && listCellule[i][j].getButton() != null){
 					listCellule[i][j] = new Cellule(0, listCellule[i][j].getButton());
 				}else{
@@ -81,18 +81,18 @@ public class Terrain implements Observer {
 		for (int i = 0; i < NB_MINE; i++){
 			ligne = random(NB_LIGNE);
 			colonne = random(NB_COLONNE);
-			while (listCellule[ligne][colonne].equals(new Cellule(-1))){
+			while (listCellule[colonne][ligne].getValue() == -1){
 				ligne = random(NB_LIGNE);
 				colonne = random(NB_COLONNE);
 			}
-			if (listCellule[ligne][colonne] != null && listCellule[ligne][colonne].getButton() != null){
-				listCellule[ligne][colonne] = new Cellule(-1, listCellule[ligne][colonne].getButton());
+			if (listCellule[colonne][ligne] != null && listCellule[colonne][ligne].getButton() != null){
+				listCellule[colonne][ligne] = new Cellule(-1, listCellule[colonne][ligne].getButton());
 			}else{
-				listCellule[ligne][colonne] = new Cellule(-1);
+				listCellule[colonne][ligne] = new Cellule(-1);
 			}
 		}
-		for (int i = 0; i < NB_LIGNE; i++){
-			for (int j = 0; j < NB_COLONNE; j++){
+		for (int i = 0; i < NB_COLONNE; i++){
+			for (int j = 0; j < NB_LIGNE; j++){
 				if (listCellule[i][j].getValue() == -1){
 					calculNbMine(i, j);
 				}
@@ -153,7 +153,7 @@ public class Terrain implements Observer {
 	 * @return
 	 */
 	private boolean testCalculateCoord(int p1, int p2){
-		return p1 >= 0 && p2 >= 0 && p1 < NB_LIGNE && p2 < NB_COLONNE && listCellule[p1][p2].getValue() != -1;
+		return p1 >= 0 && p2 >= 0 && p1 < NB_COLONNE && p2 < NB_LIGNE && listCellule[p1][p2].getValue() != -1;
 	}
 	
 	/**
@@ -163,7 +163,7 @@ public class Terrain implements Observer {
 	 * @return
 	 */
 	private boolean testSelectedCoord(int p1, int p2){
-		return p1 >= 0 && p2 >= 0 && p1 < NB_LIGNE && p2 < NB_COLONNE && !listCellule[p1][p2].isSelected() && listCellule[p1][p2].getValue() >= 0 && listCellule[p1][p2].getValue() != -1;
+		return p1 >= 0 && p2 >= 0 && p1 < NB_COLONNE && p2 < NB_LIGNE && !listCellule[p1][p2].isSelected() && listCellule[p1][p2].getValue() >= 0 && listCellule[p1][p2].getValue() != -1;
 	}
 
 	@Override
@@ -215,8 +215,8 @@ public class Terrain implements Observer {
 	private Coordonnees findCelluleInTerrain(Cellule c){
 		Coordonnees coord = new Coordonnees();
 		if (listCellule != null){
-			for (int i = 0; i < NB_LIGNE; i++){
-				for (int j = 0; j < NB_COLONNE; j++){
+			for (int i = 0; i < NB_COLONNE; i++){
+				for (int j = 0; j < NB_LIGNE; j++){
 					if (listCellule[i][j] == c){
 						coord.setLigne(i);
 						coord.setColonne(j);

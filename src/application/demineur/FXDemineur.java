@@ -9,7 +9,9 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 
 /**
@@ -19,6 +21,8 @@ import javafx.stage.Stage;
 public class FXDemineur extends Application {
 	
 	public static Terrain t = new Terrain();
+	
+	public final static int TAILLE_CELLULE = 40;
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -36,8 +40,8 @@ public class FXDemineur extends Application {
         item.setOnAction(actionEvent -> { 
         	t.initTerrain();
         	Cellule c;
-            for(int i = 0; i < Terrain.getNbLigne(); i++){
-    			for(int j = 0; j < Terrain.getNbColonne(); j++){
+            for(int i = 0; i < Terrain.getNbColonne(); i++){
+    			for(int j = 0; j < Terrain.getNbLigne(); j++){
     				c = t.getListCellule()[i][j];
     				c.setButtonColor();
     				c.addObserver(t);
@@ -54,13 +58,20 @@ public class FXDemineur extends Application {
         menu.getItems().add(item2);
         
         GridPane gd = new GridPane();
-        gd.setMaxWidth(320);
-        gd.setMaxHeight(420);
+        for (int i = 0; i < Terrain.getNbColonne(); i++){
+        	gd.getColumnConstraints().add(new ColumnConstraints(TAILLE_CELLULE));
+        }
+        for (int i = 0; i < Terrain.getNbLigne(); i++){
+        	gd.getRowConstraints().add(new RowConstraints(TAILLE_CELLULE));
+        }
+
+        gd.setMaxWidth(TAILLE_CELLULE * Terrain.getNbColonne());
+        gd.setMaxHeight(TAILLE_CELLULE * Terrain.getNbLigne());
         
         Button button;
         Cellule c;
-		for(int i = 0; i < Terrain.getNbLigne(); i++){
-			for(int j = 0; j < Terrain.getNbColonne(); j++){
+		for(int i = 0; i < Terrain.getNbColonne(); i++){
+			for(int j = 0; j < Terrain.getNbLigne(); j++){
 				c = t.getListCellule()[i][j];
 				button = new Button();
 				button.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
@@ -76,7 +87,7 @@ public class FXDemineur extends Application {
         
 		root.setCenter(gd);
 		
-		Scene scene = new Scene(root, 320, 420);
+		Scene scene = new Scene(root, TAILLE_CELLULE * Terrain.getNbColonne(), TAILLE_CELLULE * Terrain.getNbLigne() + 25);
 		
 		primaryStage.setTitle("FX Demineur 0.1");
 		primaryStage.setScene(scene);
