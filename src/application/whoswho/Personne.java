@@ -14,8 +14,7 @@ import javafx.beans.property.SimpleStringProperty;
  */
 public class Personne implements Serializable {
 
-	/** serialVersionUID */
-	private static final long serialVersionUID = -8502641192755300073L;
+	
 	
 	/** nom */
 	private transient SimpleStringProperty nom;

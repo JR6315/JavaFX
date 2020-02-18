@@ -1,3 +1,5 @@
+package application.pustules;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -9,6 +11,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
  
 class MyButton extends Button implements EventHandler<ActionEvent> { 
 	private int number;
@@ -50,19 +53,34 @@ public class FXPustules extends Application {
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
         
+        //Lambda
         primaryStage.setOnCloseRequest(windowEvent -> {
         	Alert alert = new Alert(AlertType.ERROR, "Etes-vous de vouloir quitter ?", ButtonType.YES, ButtonType.NO);
     		alert.showAndWait();
 
     		if (alert.getResult() != ButtonType.YES) {
-    			windowEvent.consume();
+    			if (attempt < 1) {
+    				windowEvent.consume();
+    				attempt++;
+    			}
     		}      
-        	/*if (attempt < 2) {
-    	    	// no close
-    	    	windowEvent.consume();
-    	    	++attempt;
-        	}*/
+        	
         });
+        //Sans Lambda
+        /*primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			@Override
+			public void handle(WindowEvent event) {
+				Alert alert = new Alert(AlertType.ERROR, "Etes-vous de vouloir quitter ?", ButtonType.YES, ButtonType.NO);
+	    		alert.showAndWait();
 
+	    		if (alert.getResult() != ButtonType.YES) {
+	    			if (attempt < 1) {
+	    				event.consume();
+	    				attempt++;
+	    			}
+	    		} 
+			}      
+        	
+        });*/
     }
 }

@@ -116,9 +116,9 @@ public class Cellule extends Observable {
 					break;
 				default  : 
 					button.setStyle("-fx-background-color: #00ff00;-fx-border-color: #a0a0a0;");
+					button.setText(String.valueOf(value));
 					break;
 				}
-				button.setText(String.valueOf(value));
 			}else{
 				button.setStyle("-fx-background-color: #f4f4f4;-fx-border-color: #a0a0a0;");
 				button.setText("");

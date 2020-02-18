@@ -1,7 +1,6 @@
-package application;
+package application.oscillo;
 
 import javafx.application.Application;
-import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -12,6 +11,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 class MyCanvas extends Canvas {
 
@@ -77,6 +77,14 @@ class MyCanvas extends Canvas {
 		for(int i= 0; i< getWidth(); ) {
 			gc.strokeLine(i, x, i+=pas, x=(int)(Math.random()*getHeight()));
 		}
+		
+		/*double[] x = new double[(int) getWidth()];
+		double[] y = new double[(int) getWidth()];
+		for(int i= 0; i< getWidth(); i++) {
+			x[i] = Math.random()*getWidth();
+			y[i] = Math.random()*getHeight();
+		}
+		gc.strokePolyline(x, y, (int) getWidth());*/
 	}
 
 }

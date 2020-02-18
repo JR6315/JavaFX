@@ -1,10 +1,15 @@
 package application;
 	
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Tooltip;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
@@ -23,22 +28,43 @@ public class Main extends Application {
 			Tooltip.install(root, new Tooltip("The panel may change button size"));
 			
 			Button btn = new Button("CENTRE");
+			btn.setOnAction(e -> { 
+				System.out.println("Clic sur le bouton CENTRE"); 
+				launchPopin("Clic sur le bouton CENTRE"); 
+			});
 			maximize(btn);
 			root.setCenter(btn);
 			
 			btn = new Button("HAUT");
+			btn.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+					System.out.println("Clic sur le bouton HAUT");
+					launchPopin("Clic sur le bouton HAUT");
+				}
+			});
 			maximize(btn);
 			root.setTop(btn);
 			
+			EventHandler<ActionEvent> handler = new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+					System.out.println("Clic sur le bouton " + ((Button) event.getSource()).getText());
+					launchPopin("Clic sur le bouton " + ((Button) event.getSource()).getText());
+				}
+			};
 			btn = new Button("BAS");
+			btn.setOnAction(handler);
 			maximize(btn);
 			root.setBottom(btn);
 			
 			btn = new Button("GAUCHE");
+			btn.setOnAction(handler);
 			maximize(btn);
 			root.setLeft(btn);
 			
 			btn = new Button("DROIT");
+			btn.setOnAction(handler::handle);
 			maximize(btn);
 			root.setRight(btn);
 			
@@ -46,7 +72,7 @@ public class Main extends Application {
 			
 			
 			// Flow Layout
-			FlowPane root2 = new FlowPane();
+			/*FlowPane root2 = new FlowPane();
 			Scene scene2 = new Scene(root2);
 			Tooltip.install(root2, new Tooltip("The panel cannot change button size"));
 			
@@ -98,7 +124,7 @@ public class Main extends Application {
 
 			setStage(new Stage(), scene5, "JavaFX VBox Layout");
 			
-
+			*/
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -113,6 +139,11 @@ public class Main extends Application {
 	private void maximize(Region region) {
 		region.setMaxWidth(Double.MAX_VALUE);
 		region.setMaxHeight(Double.MAX_VALUE);
+	}
+	
+	private void launchPopin(String message) {
+		Alert alert = new Alert(AlertType.INFORMATION, message, ButtonType.OK);
+		alert.showAndWait();
 	}
 	
 	public static void main(String[] args) {
